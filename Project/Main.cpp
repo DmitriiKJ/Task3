@@ -1,17 +1,17 @@
 #include <iostream>
 using namespace std;
 
-// Створення таблиці констант
+// Creating a table of constants
 char constTable[2][16] = {
-	// Для перших чотирьох бітів
+	// For the first four bits
 	{'9', '6', '3', '2', '8', 'B', '1', '7', 'A', '4', 'E', 'F', 'C', '0', 'D', '5'},
-	// Для останніх чотирьох бітів
+	// For the last four bits
 	{'3', '7', 'E', '9', '8', 'A', 'F', '0', '5', '2', '6', 'C', 'B', '4', 'D', '1'}
 };
 
 char newTable[2][16];
 
-char S_blok_1(char byte, char table[2][16]) // Шифрування
+char S_blok_1(char byte, char table[2][16]) // Encryption
 {
 	char res;
 	for (int i = 0; i < 2; i++)
@@ -114,7 +114,7 @@ char P_block_2(char_bites ch)
 
 int main()
 {
-	//------------------------ Шифрування S-блоку
+	//------------------------ S-block encryption
 	char byte_after = 'p';
 	char byte_before = S_blok_1(byte_after, constTable);
 	cout << byte_after << " ---> " << byte_before << endl;
@@ -123,7 +123,7 @@ int main()
 
 	cout << byte_before << " ---> " << S_blok_1(byte_before, newTable) << endl;
 
-	//------------------------ Шифрування P-блоку
+	//------------------------ P - block encryption
 	char_bites pb, res1, res2;
 	pb.symbol = 'c';
 	res1.symbol = P_block_1(pb);
