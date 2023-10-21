@@ -20,18 +20,34 @@ char S_blok_1(char byte, char table[2][16]) // Encryption
 		{
 			if (i == 0 && j == byte >> 4)
 			{
-				res = (table[i][j] - '0') << 4;
+				if (table[i][j] == 'A' || table[i][j] == 'B' || table[i][j] == 'C' || table[i][j] == 'D' || table[i][j] == 'E' || table[i][j] == 'F')
+				{
+					res = (table[i][j] - '0' - 7) << 4;
+				}
+				else
+				{
+					res = (table[i][j] - '0') << 4;
+				}
+				break;
 			}
 			else if (i == 1 && ((byte & 0x0F) == j))
 			{
-				res = res | (table[i][j] - '0');
+				if (table[i][j] == 'A' || table[i][j] == 'B' || table[i][j] == 'C' || table[i][j] == 'D' || table[i][j] == 'E' || table[i][j] == 'F')
+				{
+					res = res | (table[i][j] - '0' - 7);
+				}
+				else
+				{
+					res = res | (table[i][j] - '0');
+				}
+				break;
 			}
 		}
 	}
 	return res;
 }
 
-void S_blok_2(const char table[2][16], char newTable[2][16]) 
+void S_blok_2(const char table[2][16], char newTable[2][16]) // Create table reverce
 {
 	for (int i = 0; i < 2; i++) 
 	{
@@ -78,6 +94,7 @@ struct bites
 	short bit8 : 1;
 };
 
+
 union char_bites
 {
 	char symbol;
@@ -98,6 +115,7 @@ char P_block_1(char_bites ch)
 	return res.symbol;
 }
 
+
 char P_block_2(char_bites ch)
 {
 	char_bites res;
@@ -114,21 +132,25 @@ char P_block_2(char_bites ch)
 
 int main()
 {
-	//------------------------ S-block encryption
-	char byte_after = 'p';
-	char byte_before = S_blok_1(byte_after, constTable);
-	cout << byte_after << " ---> " << byte_before << endl;
+		//------------------------ S-block encryption
+		cout << "Enter symbol: ";
+		char byte_after;
+		cin >> byte_after;
+		char byte_before = S_blok_1(byte_after, constTable);
+		cout << byte_after << " ---> " << byte_before << endl;
 
-	S_blok_2(constTable, newTable);
+		S_blok_2(constTable, newTable);
 
-	cout << byte_before << " ---> " << S_blok_1(byte_before, newTable) << endl;
+		cout << byte_before << " ---> " << S_blok_1(byte_before, newTable) << endl;
 
-	//------------------------ P - block encryption
-	char_bites pb, res1, res2;
-	pb.symbol = 'c';
-	res1.symbol = P_block_1(pb);
-	cout << pb.symbol << " ----> " << res1.symbol << endl;
-	res2.symbol = P_block_2(res1);
-	cout << res1.symbol << " ----> " << res2.symbol << endl;
+		//------------------------ P - block encryption
+		char_bites pb, res1, res2;
+		cout << "Enter symbol: ";
+		cin >> pb.symbol;
+		res1.symbol = P_block_1(pb);
+		cout << pb.symbol << " ----> " << res1.symbol << endl;
+		res2.symbol = P_block_2(res1);
+		cout << res1.symbol << " ----> " << res2.symbol << endl;
+
 	return 0;
 }
