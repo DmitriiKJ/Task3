@@ -84,14 +84,14 @@ void S_blok_2(const char table[2][16], char newTable[2][16]) // Create table rev
 
 struct bites
 {
-	short bit1 : 1;
-	short bit2 : 1;
-	short bit3 : 1;
-	short bit4 : 1;
-	short bit5 : 1;
-	short bit6 : 1;
-	short bit7 : 1;
-	short bit8 : 1;
+	unsigned short bit1 : 1;
+	unsigned short bit2 : 1;
+	unsigned short bit3 : 1;
+	unsigned short bit4 : 1;
+	unsigned short bit5 : 1;
+	unsigned short bit6 : 1;
+	unsigned short bit7 : 1;
+	unsigned short bit8 : 1;
 };
 
 
